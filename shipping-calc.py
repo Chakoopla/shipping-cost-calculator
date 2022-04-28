@@ -1,4 +1,5 @@
 from cs50 import get_string
+from cs50 import get_int
 
 total = 0
 shipping_cost = 0
@@ -11,43 +12,28 @@ while (international.lower() not in ["y", "yes", "n", "no"]):
     # Get user input
     international = get_string("Is this being shipped international? ")
 
-# Set international status
+# International fee if applicable
 if international in ["y", "yes"]:
-    international = True
-else:
-    international = False
-
-# Find shipping cost
-if international == True:
     shipping_cost += 15
     print("An international fee has been applied")
     print("--------------------")
-if int(total) <= 30:
+
+# Get total from user
+while (total <= 0):
+    total = get_int("What is the total of purchase? ")
+
+# Shipping calculation
+if total <= 30:
     shipping_cost += 20
-elif int(total) <= 50:
+elif total <= 50:
     shipping_cost += 10
 else:
     shipping_cost += 0
-
-# Get total from user
-total = get_string("what is the total of purchase? ")
-
-# Checking for input errors
-# -------------------------
-# Not an int?: error
-try:
-    int(total)
-except:
-    raise ValueError("Total must be a positive integer.")
-
-# Not a positive int?: error
-if int(total) <= 0:
-    raise ValueError("Total must be a positive integer.")
 
 # Print calculation
 print(f"Total cost: ${total}")
 print(f"Shipping cost: ${shipping_cost}")
 print("--------------------")
-print(f"Grand total: ${int(total)+shipping_cost}")
+print(f"Grand total: ${total+shipping_cost}")
 
 exit()
